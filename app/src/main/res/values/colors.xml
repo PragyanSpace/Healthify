@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="transparent">#00000000</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_03DAC5">#03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="red">#fe1616</color>
+    <color name="searching">#77CED3</color>
+    <color name="app_background_color">#000000</color>
+    <color name="color_151719">#151719</color>
+    <color name="color_5658DD">#5658DD</color>
+    <color name="color_827E7E">#827E7E</color>
+    <color name="card">#332446</color>
+    <color name="text">#6163FF</color>
+    <color name="bg_top">#2B0D53</color>
+    <color name="bg_edit_image">#332B0D53</color>
+    <color name="bg_bottom">#151719</color>
+    <color name="win">#2D7C4D</color>
+    <color name="lose">#BA3434</color>
+    <color name="tie">#C9982D</color>
+    <color name="starting_battle">#C92ACC</color>
+    <color name="battle_background_box">#C68A5BED</color>
+    <color name="editProfile_button_background">#1affffff</color>
+    <color name="editProfile_button_background_medium">#ccffffff</color>
+    <color name="color_6B6C7B">#6B6C7B</color>
+    <color name="orange">#FF5722</color>
+</resources>
