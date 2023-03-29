@@ -20,6 +20,7 @@ import com.hackvita.pathcare.databinding.ActivityRegisterBinding
 import com.hackvita.pathcare.login.ui.LoginActivity
 import com.hackvita.pathcare.register.model.RegisterRequestModel
 import com.hackvita.pathcare.register.viewmodel.RegisterActivityViewModel
+import com.hackvita.pathcare.utility.AppUrls
 import com.hackvita.pathcare.utility.BaseUtil
 
 class RegisterActivity : AppCompatActivity() {
@@ -147,7 +148,13 @@ class RegisterActivity : AppCompatActivity() {
                 // "Success:  Token-> ${it.data?.token}",
                 Toast.LENGTH_SHORT
             ).show()
-//            AppUrls.TOKEN = "Bearer " + it.data?.token
+            AppUrls.TOKEN = "Bearer " + it.token
+            if(it.success==true)
+            {
+                val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         })
     }
 
