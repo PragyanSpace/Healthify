@@ -4,12 +4,13 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 class RetrofitUtilClass {
     companion object {
         private lateinit var retrofit: Retrofit
 
-        val API_BASE_URL_PROD = "https://path-care.onrender.com/"
+        val API_BASE_URL_PROD = "https://path-med.onrender.com/"
 
         fun getRetrofit(): Retrofit {
 
@@ -20,6 +21,9 @@ class RetrofitUtilClass {
                     .addConverterFactory(
                         GsonConverterFactory.create()
                     ).client(OkHttpClient.Builder()
+                        .connectTimeout(15, TimeUnit.SECONDS) // set connect timeout
+                        .readTimeout(15, TimeUnit.SECONDS) // set read timeout
+                        .writeTimeout(15, TimeUnit.SECONDS)
                         .addInterceptor { chain ->
                             chain.proceed(chain.request().newBuilder().also {
 

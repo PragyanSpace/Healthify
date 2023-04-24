@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".register.AskUserDetailAfterRegister">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Your Profile Picture to Personalize Your Healthcare Experience!"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_18"
+            android:padding="@dimen/padding_normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/dpImg"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="@dimen/margin_large"
+            android:src="@drawable/app_logo"
+            app:civ_border_color="@color/blue"
+            app:civ_border_width="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/editProfilePicBtn"
+            android:layout_width="27dp"
+            android:layout_height="37dp"
+            android:layout_centerHorizontal="true"
+            android:foregroundGravity="center"
+            android:paddingBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/dpImg"
+            app:layout_constraintEnd_toEndOf="@+id/dpImg"
+            app:layout_constraintStart_toStartOf="@+id/dpImg"
+            app:srcCompat="@drawable/ic_outline_camera_alt_24" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/upload_dp_lottie" />
+
+        <ImageView
+            android:id="@+id/move_to_next_page"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/right_arrow"
+            android:layout_marginEnd="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_normal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

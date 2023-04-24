@@ -20,6 +20,7 @@ import com.hackvita.pathcare.R
 import com.hackvita.pathcare.databinding.ActivitySigninBinding
 import com.hackvita.pathcare.login.model.LoginRequestModel
 import com.hackvita.pathcare.login.viewmodel.LoginActivityViewModel
+import com.hackvita.pathcare.patient.PatientActivity
 import com.hackvita.pathcare.register.ui.RegisterActivity
 import com.hackvita.pathcare.utility.AppUrls
 import com.hackvita.pathcare.utility.BaseUtil
@@ -36,11 +37,11 @@ class LoginActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_signin)
         viewModel = ViewModelProvider(this).get(LoginActivityViewModel::class.java)
 
-//        if (PrefUtil(this).sharedPreferences?.getBoolean(PrefUtil.IS_LOGIN, false) == true) {
-//            val intent = Intent(this@LoginActivity, MainActivity::class.java)
-//            startActivity(intent)
-//            finish()
-//        }
+        if (PrefUtil(this).sharedPreferences?.getBoolean(PrefUtil.IS_LOGIN, false) == true) {
+            val intent = Intent(this@LoginActivity, PatientActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
         observeShowProgress()
         observeErrorMessage()
         observeApiResponse()
@@ -114,9 +115,14 @@ class LoginActivity : AppCompatActivity() {
                 ?.putBoolean(PrefUtil.IS_LOGIN, true)?.apply()
             PrefUtil(this@LoginActivity).sharedPreferences?.edit()
                 ?.putString(PrefUtil.TOKEN, "Bearer " + it.token)?.apply()
+            PrefUtil(this@LoginActivity).sharedPreferences?.edit()
+                ?.putString(PrefUtil.ID, it.user?.Id)?.apply()
+            PrefUtil(this@LoginActivity).sharedPreferences?.edit()
+                ?.putString(PrefUtil.USERNAME, it.user?.name)?.apply()
             if(it.success==true)
             {
-                val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                val intent = Intent(this@LoginActivity, PatientActivity::class.java)
+                intent.putExtra("username",it.user?.name)
                 startActivity(intent)
                 finish()
             }

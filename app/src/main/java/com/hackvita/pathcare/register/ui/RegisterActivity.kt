@@ -18,6 +18,7 @@ import com.hackvita.pathcare.MainActivity
 import com.hackvita.pathcare.R
 import com.hackvita.pathcare.databinding.ActivityRegisterBinding
 import com.hackvita.pathcare.login.ui.LoginActivity
+import com.hackvita.pathcare.register.AskUserDetailAfterRegister
 import com.hackvita.pathcare.register.model.RegisterRequestModel
 import com.hackvita.pathcare.register.viewmodel.RegisterActivityViewModel
 import com.hackvita.pathcare.utility.AppUrls
@@ -151,7 +152,7 @@ class RegisterActivity : AppCompatActivity() {
             AppUrls.TOKEN = "Bearer " + it.token
             if(it.success==true)
             {
-                val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                val intent = Intent(this@RegisterActivity, AskUserDetailAfterRegister::class.java)
                 startActivity(intent)
                 finish()
             }

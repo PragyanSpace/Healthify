@@ -3,10 +3,33 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/PROGYAN/AndroidStudioProjects/PathCare/app/src/main/res/drawable-v24/home_search_btn.xml" value="0.2225" />
         <entry key="..\:/Users/PROGYAN/AndroidStudioProjects/PathCare/app/src/main/res/drawable/app_background.xml" value="0.2225" />
+        <entry key="..\:/Users/PROGYAN/AndroidStudioProjects/PathCare/app/src/main/res/drawable/circle_background.xml" value="0.2315" />
+        <entry key="..\:/Users/PROGYAN/AndroidStudioProjects/PathCare/app/src/main/res/drawable/grey_back.xml" value="0.2315" />
+        <entry key="..\:/Users/PROGYAN/AndroidStudioProjects/PathCare/app/src/main/res/drawable/ic_home.xml" value="0.121" />
+        <entry key="..\:/Users/PROGYAN/AndroidStudioProjects/PathCare/app/src/main/res/drawable/ic_med.xml" value="0.2225" />
+        <entry key="..\:/Users/PROGYAN/AndroidStudioProjects/PathCare/app/src/main/res/drawable/ic_user_circle.xml" value="0.121" />
+        <entry key="..\:/Users/PROGYAN/AndroidStudioProjects/PathCare/app/src/main/res/drawable/red_background.xml" value="0.2315" />
+        <entry key="..\:/Users/PROGYAN/AndroidStudioProjects/PathCare/app/src/main/res/drawable/search_bar_background.xml" value="0.2225" />
         <entry key="..\:/Users/PROGYAN/AndroidStudioProjects/PathCare/app/src/main/res/drawable/text_view_border.xml" value="0.2225" />
+        <entry key="..\:/Users/PROGYAN/AndroidStudioProjects/PathCare/app/src/main/res/layout/activity_appointment_detail.xml" value="0.2" />
+        <entry key="..\:/Users/PROGYAN/AndroidStudioProjects/PathCare/app/src/main/res/layout/activity_hospital_detail.xml" value="0.25" />
         <entry key="..\:/Users/PROGYAN/AndroidStudioProjects/PathCare/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/PROGYAN/AndroidStudioProjects/PathCare/app/src/main/res/layout/activity_management.xml" value="0.2359375" />
+        <entry key="..\:/Users/PROGYAN/AndroidStudioProjects/PathCare/app/src/main/res/layout/activity_management_patient_detail.xml" value="0.2359375" />
+        <entry key="..\:/Users/PROGYAN/AndroidStudioProjects/PathCare/app/src/main/res/layout/activity_patient.xml" value="0.264" />
         <entry key="..\:/Users/PROGYAN/AndroidStudioProjects/PathCare/app/src/main/res/layout/activity_register.xml" value="0.2" />
+        <entry key="..\:/Users/PROGYAN/AndroidStudioProjects/PathCare/app/src/main/res/layout/activity_signin.xml" value="0.25" />
+        <entry key="..\:/Users/PROGYAN/AndroidStudioProjects/PathCare/app/src/main/res/layout/appointment_rv_item.xml" value="0.24895833333333334" />
+        <entry key="..\:/Users/PROGYAN/AndroidStudioProjects/PathCare/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/Users/PROGYAN/AndroidStudioProjects/PathCare/app/src/main/res/layout/fragment_management_home.xml" value="0.24895833333333334" />
+        <entry key="..\:/Users/PROGYAN/AndroidStudioProjects/PathCare/app/src/main/res/layout/fragment_profile.xml" value="0.25" />
+        <entry key="..\:/Users/PROGYAN/AndroidStudioProjects/PathCare/app/src/main/res/layout/fragment_profile_management.xml" value="0.24895833333333334" />
+        <entry key="..\:/Users/PROGYAN/AndroidStudioProjects/PathCare/app/src/main/res/layout/fragment_qr_scanner.xml" value="0.2359375" />
+        <entry key="..\:/Users/PROGYAN/AndroidStudioProjects/PathCare/app/src/main/res/layout/hospitals_item.xml" value="0.24895833333333334" />
+        <entry key="..\:/Users/PROGYAN/AndroidStudioProjects/PathCare/app/src/main/res/menu/management_menu_bottom_navbar.xml" value="0.24895833333333334" />
+        <entry key="..\:/Users/PROGYAN/AndroidStudioProjects/PathCare/app/src/main/res/menu/menu_bottom_navbar.xml" value="0.264" />
       </map>
     </option>
   </component>
