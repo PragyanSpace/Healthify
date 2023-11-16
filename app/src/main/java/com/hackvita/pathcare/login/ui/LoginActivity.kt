@@ -110,21 +110,27 @@ class LoginActivity : AppCompatActivity() {
     private fun observeApiResponse() {
         viewModel?.loginResponseMutableLiveData?.observe(this, Observer {
             AppUrls.TOKEN = "Bearer " + it.token.toString()
-            Log.i(TAG, "observeApiResponse: ${it.user}")
             PrefUtil(this@LoginActivity).sharedPreferences?.edit()
                 ?.putBoolean(PrefUtil.IS_LOGIN, true)?.apply()
             PrefUtil(this@LoginActivity).sharedPreferences?.edit()
                 ?.putString(PrefUtil.TOKEN, "Bearer " + it.token)?.apply()
             PrefUtil(this@LoginActivity).sharedPreferences?.edit()
-                ?.putString(PrefUtil.ID, it.user?.Id)?.apply()
-            PrefUtil(this@LoginActivity).sharedPreferences?.edit()
-                ?.putString(PrefUtil.USERNAME, it.user?.name)?.apply()
+                ?.putString(PrefUtil.ID, it.id)?.apply()
+//            PrefUtil(this@LoginActivity).sharedPreferences?.edit()
+//                ?.putString(PrefUtil.USERNAME, it.user?.name)?.apply()
             if(it.success==true)
             {
                 val intent = Intent(this@LoginActivity, PatientActivity::class.java)
-                intent.putExtra("username",it.user?.name)
+                intent.putExtra("username","Pragyan")
                 startActivity(intent)
                 finish()
+            }
+            else
+            {
+                val snack = Snackbar.make(binding.root, "Unable to login", Snackbar.LENGTH_SHORT)
+                snack.setBackgroundTint(resources.getColor(R.color.color_5658DD))
+                snack.setTextColor(resources.getColor(R.color.white))
+                snack.show()
             }
         })
     }

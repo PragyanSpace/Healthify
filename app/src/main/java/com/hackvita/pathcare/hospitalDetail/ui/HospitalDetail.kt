@@ -9,6 +9,7 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.hackvita.pathcare.R
 import com.hackvita.pathcare.appointment_booking_detail_bottomsheet.ui.AppointmentDetailBottomsheet
 import com.hackvita.pathcare.databinding.ActivityHospitalDetailBinding
@@ -29,6 +30,7 @@ class HospitalDetail : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(HospitalDetailViewmodel::class.java)
         hosId=intent.getStringExtra("HOSPITAL_ID").toString()
         observeApiResponse()
+        observeShowProgress()
         observeAppointmentApiResponse()
         callHospitalDetailApi()
         initListener()
@@ -83,13 +85,22 @@ class HospitalDetail : AppCompatActivity() {
                 }
                 var hosDept=""
                 for (name in it.hospital?.departments!!) {
-                    hosDept+="$name , "
+                    hosDept+="${name.deptName} , "
                 }
                 binding.name= it.hospital?.name.toString()
                 binding.email=it.hospital?.email.toString()
                 binding.contact=hosContact.trim()
                 binding.departments=hosDept.trim()
                 binding.address=it.hospital?.address?.city.toString()
+
+                if(it.hospital!!.name=="JMCH")
+                {
+                    Glide.with(this).load(R.drawable.jmch_logo).into(binding.hospitalImg)
+                }
+                else if(it.hospital!!.name=="GMCH")
+                {
+                    Glide.with(this).load(R.drawable.gmch_logo).into(binding.hospitalImg)
+                }
             }
         })
     }
@@ -113,6 +124,23 @@ class HospitalDetail : AppCompatActivity() {
                 binding.appointmentTV.visibility=View.VISIBLE
             }
         })
+    }
+
+    private fun observeShowProgress() {
+        viewModel?.showProgress?.observe(this){
+
+            if(it) {
+                binding.progressBar.visibility=View.VISIBLE
+                binding.linearLayout.visibility=View.GONE
+                binding.bookBtn.visibility=View.GONE
+            }
+            else
+                binding.progressBar.visibility=View.GONE
+            binding.linearLayout.visibility=View.VISIBLE
+            binding.bookBtn.visibility=View.VISIBLE
+
+        }
+
     }
 
 

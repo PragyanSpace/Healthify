@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.graphics.rotationMatrix
+import androidx.core.view.marginTop
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.zxing.BarcodeFormat
@@ -21,6 +23,7 @@ import com.journeyapps.barcodescanner.BarcodeEncoder
 class Profile : Fragment() {
     lateinit var binding:FragmentProfileBinding
     lateinit var viewmodel:ProfileViewmodel
+    var shownDetails=false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,7 +32,18 @@ class Profile : Fragment() {
         binding = FragmentProfileBinding.inflate(layoutInflater, container, false)
         viewmodel = ViewModelProvider(this).get(ProfileViewmodel::class.java)
         observeUserApiCall()
+        observeShowProgress()
         callUserDetailApi()
+
+        binding.card.setOnClickListener {
+            if (shownDetails) {
+                binding.details.visibility = View.GONE
+                shownDetails = false
+            } else {
+                binding.details.visibility = View.VISIBLE
+                shownDetails = true
+            }
+        }
 
         binding.logout.setOnClickListener {
 
@@ -45,7 +59,7 @@ class Profile : Fragment() {
 
     private fun callUserDetailApi() {
         val token= PrefUtil(requireContext()).sharedPreferences?.getString(PrefUtil.TOKEN, "")
-        val id= PrefUtil(requireContext()).sharedPreferences?.getString(PrefUtil.ID, "")
+        val id= PrefUtil(requireContext()).sharedPreferences?.getString(PrefUtil.ID, "647384dfc6959dd3602f9764")
 
         viewmodel.callUserApi(token,id)
     }
@@ -71,5 +85,21 @@ class Profile : Fragment() {
             e.printStackTrace();
         }
         return null
+    }
+
+    private fun observeShowProgress() {
+        viewmodel?.showProgress?.observe(viewLifecycleOwner){
+
+            if(it) {
+                binding.progressBar.visibility = View.VISIBLE
+                binding.mainView.visibility=View.GONE
+            }
+            else {
+                binding.progressBar.visibility = View.GONE
+                binding.mainView.visibility=View.VISIBLE
+            }
+
+        }
+
     }
 }

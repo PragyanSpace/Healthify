@@ -5,7 +5,8 @@ import com.google.gson.annotations.SerializedName
 data class AppointmentResponseModel(
     @SerializedName("success"     ) var success     : Boolean?     = null,
     @SerializedName("appointment" ) var appointment : Appointment? = Appointment(),
-    @SerializedName("message"     ) var message     : String?      = null
+    @SerializedName("message"     ) var message     : String?      = null,
+    @SerializedName("error"     ) var error   : String?      = null
 )
 
 data class Appointment(
@@ -15,5 +16,6 @@ data class Appointment(
     @SerializedName("urgency"          ) var urgency         : Int?    = null,
     @SerializedName("_id"              ) var Id              : String? = null,
     @SerializedName("req_date"         ) var reqDate         : String? = null,
-    @SerializedName("__v"              ) var _v              : Int?    = null
+    @SerializedName("__v"              ) var _v              : Int?    = null,
+    @SerializedName("description" ) var description : String? = null
 )

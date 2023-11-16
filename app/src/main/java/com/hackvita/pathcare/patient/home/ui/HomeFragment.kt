@@ -8,23 +8,19 @@ import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.LocationManager
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.requestPermissions
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hackvita.pathcare.databinding.FragmentHomeBinding
-import com.hackvita.pathcare.login.viewmodel.LoginActivityViewModel
-import com.hackvita.pathcare.patient.home.model.HospitalRequestModel
-import com.hackvita.pathcare.patient.home.model.ResHospital
+import com.hackvita.pathcare.patient.home.model.Hospitals
+import com.hackvita.pathcare.patient.home.model.NearbyHospitalRequestModel
 import com.hackvita.pathcare.patient.home.viewmodel.HomeViewModel
 import com.hackvita.pathcare.utility.PrefUtil
-import com.hackvita.pathcare.videoCall.VideoCallActivity
 import java.util.*
 
 class HomeFragment : Fragment() {
@@ -33,14 +29,14 @@ class HomeFragment : Fragment() {
     var token: String? = null
     private val REQUEST_FINE_LOCATION = 123
     lateinit var _city: String
+    lateinit var _latitude: String
+    lateinit var _longitude: String
     lateinit var searchCity: String
     lateinit var searchHospital: String
     lateinit var viewmodel: HomeViewModel
-    lateinit var from: String
     var homeRecyclerViewAdapter: HomeAdapter? = null
-    var homeSearchRecyclerViewAdapter: HomeAdapter? = null
-    var hospitalData = ArrayList<ResHospital>()
-    var searchHospitalData = ArrayList<ResHospital>()
+    var homeSearchRecyclerViewAdapter: HomeSearchAdapter? = null
+    var nearbyHospitalData = arrayListOf<Hospitals>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,9 +44,11 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         viewmodel = ViewModelProvider(this).get(HomeViewModel::class.java)
         _city = getCity().toString()
+        observeNearbyHospitalsApiResponse()
+        getLatitudeLongitude()
         token = PrefUtil(requireContext()).sharedPreferences?.getString(PrefUtil.TOKEN, "")
-        observeHospitalsApiResponse()
-        callNearbyHospitalsApi()
+//        observeHospitalsApiResponse()
+        observeShowProgress()
         intiListener()
 
         return binding.root
@@ -58,12 +56,21 @@ class HomeFragment : Fragment() {
 
     private fun intiListener() {
 
-        binding.username=PrefUtil(requireContext()).sharedPreferences?.getString(PrefUtil.USERNAME,"").toString()+","
+        binding.username ="hi ${PrefUtil(requireContext()).sharedPreferences?.getString(PrefUtil.USERNAME, "Pragyan")}"
+                .toString() + ","
         binding.searchBtn.setOnClickListener {
-            from="search"
-            callSearchHospitalsApi()
+            var intent=Intent(requireContext(),SearchHospitalActivity::class.java)
+            intent.putExtra("mode",binding.searchSpinner.selectedItem.toString())
+            intent.putExtra("search",binding.searchEditText.text.toString())
+            startActivity(intent)
+            hideMyKeyboard()
         }
 
+
+        binding.refreshLayout.setOnRefreshListener {
+            callNearbyHospitalsApi()
+            binding.refreshLayout.isRefreshing = false
+        }
 //        binding.openVideoCall.setOnClickListener {
 //            startActivity(Intent(requireContext(),VideoCallActivity::class.java))
 //        }
@@ -105,6 +112,34 @@ class HomeFragment : Fragment() {
         return ""
     }
 
+    fun getLatitudeLongitude() {
+        // Check if the app has permission to access the device's location
+
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+
+            // Get the location manager
+            val locationManager =
+                requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+            // Get the last known location of the device
+            val location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+
+            _latitude = location?.latitude.toString()
+            _longitude = location?.longitude.toString()
+            callNearbyHospitalsApi()
+        } else {
+            requestPermissions(
+                requireActivity(),
+                arrayOf(ACCESS_FINE_LOCATION),
+                REQUEST_FINE_LOCATION
+            )
+        }
+    }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -124,22 +159,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun callNearbyHospitalsApi() {
-        from="location"
-        var hospitalRequestModel = HospitalRequestModel(_city, null)
-        viewmodel.hospitalApiCall(token.toString(), hospitalRequestModel)
+        val token = PrefUtil(requireContext()).sharedPreferences?.getString(PrefUtil.TOKEN, "")
+        var hospitalRequestModel = NearbyHospitalRequestModel(_latitude, _longitude)
+        viewmodel.nearbyHospitalApiCall(token.toString(), hospitalRequestModel)
     }
 
-    private fun callSearchHospitalsApi() {
-        if (binding.searchSpinner.getSelectedItem().toString() == "city") {
-            searchCity=binding.searchEditText.text.toString()
-            var hospitalRequestModel = HospitalRequestModel(searchCity, null)
-            viewmodel.hospitalApiCall(token.toString(), hospitalRequestModel)
-        } else if (binding.searchSpinner.getSelectedItem().toString() == "hospital") {
-            searchHospital=binding.searchEditText.text.toString()
-            var hospitalRequestModel = HospitalRequestModel(null, searchHospital)
-            viewmodel.hospitalApiCall(token.toString(), hospitalRequestModel)
-        }
-    }
 
     private fun hideMyKeyboard() {
         val view = view
@@ -152,32 +176,41 @@ class HomeFragment : Fragment() {
 
     }
 
-    private fun observeHospitalsApiResponse() {
-        viewmodel.hospitalResponse.observe(viewLifecycleOwner) {
-            if (from=="search")
+    private fun observeNearbyHospitalsApiResponse() {
+        viewmodel.nearbyHospitalResponse.observe(viewLifecycleOwner) {
+            nearbyHospitalData = it.hospitals
+            binding.hospitalRv.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
+            homeRecyclerViewAdapter = HomeAdapter(
+                requireContext(),
+                ArrayList(nearbyHospitalData)
+            )
+            binding.hospitalRv.adapter = homeRecyclerViewAdapter
+            if (it.hospitals.isEmpty())
             {
-                binding.searchHospitalRv.visibility=View.VISIBLE
-                searchHospitalData = it.resHospital
-                if(searchHospitalData.size==0)
-                    Toast.makeText(requireContext(),"No hospitals found",Toast.LENGTH_LONG).show()
-                binding.searchHospitalRv.layoutManager =
-                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
-                homeSearchRecyclerViewAdapter = HomeAdapter(
-                    requireContext(),
-                    ArrayList(searchHospitalData)
-                )
-                binding.searchHospitalRv.adapter = homeSearchRecyclerViewAdapter
+                binding.hospitalRv.visibility=View.GONE
+                binding.nearbyHospitalsTV.visibility=View.VISIBLE
             }
             else {
-                hospitalData = it.resHospital
-                binding.hospitalRv.layoutManager =
-                    LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
-                homeRecyclerViewAdapter = HomeAdapter(
-                    requireContext(),
-                    ArrayList(hospitalData)
-                )
-                binding.hospitalRv.adapter = homeRecyclerViewAdapter
+                binding.hospitalRv.visibility = View.VISIBLE
+                binding.nearbyHospitalsTV.visibility = View.GONE
             }
         }
+    }
+
+    private fun observeShowProgress() {
+        viewmodel?.showProgress?.observe(viewLifecycleOwner){
+
+            if(it) {
+                binding.progressBar.visibility = View.VISIBLE
+                binding.hospitalRv.visibility = View.GONE
+            }
+            else {
+                binding.progressBar.visibility = View.GONE
+                binding.hospitalRv.visibility = View.VISIBLE
+            }
+
+        }
+
     }
 }

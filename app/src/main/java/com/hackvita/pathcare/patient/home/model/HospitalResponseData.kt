@@ -3,20 +3,23 @@ package com.hackvita.pathcare.patient.home.model
 import com.google.gson.annotations.SerializedName
 
 data class HospitalResponseData (
-    @SerializedName("success"     ) var success     : Boolean?               = null,
-    @SerializedName("resHospital" ) var resHospital : ArrayList<ResHospital> = arrayListOf()
+    @SerializedName("success"   ) var success   : Boolean?             = null,
+    @SerializedName("hospitals" ) var hospitals : ArrayList<SearchedHospitals> = arrayListOf(),
+    @SerializedName("message"   ) var message   : String?              = null,
+    @SerializedName("error"     ) var error     : String?              = null
 )
 
-data class ResHospital (
+data class SearchedHospitals (
 
+    @SerializedName("address" ) var address : Address? = Address(),
     @SerializedName("_id"     ) var Id      : String?  = null,
-    @SerializedName("name"    ) var name    : String?  = null,
-    @SerializedName("address" ) var address : Address? = Address()
-    )
+    @SerializedName("name"    ) var name    : String?  = null
 
-data class Address(
-    @SerializedName("state"    ) var state    : String? = null,
-    @SerializedName("city"     ) var city     : String? = null,
-    @SerializedName("district" ) var district : String? = null,
-    @SerializedName("pin_code" ) var pinCode  : Int?    = null
+)
+
+data class Address (
+
+    @SerializedName("state" ) var state : String? = null,
+    @SerializedName("city"  ) var city  : String? = null
+
 )

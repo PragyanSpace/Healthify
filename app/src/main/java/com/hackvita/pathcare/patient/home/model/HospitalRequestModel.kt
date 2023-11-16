@@ -5,5 +5,6 @@ import com.google.gson.annotations.SerializedName
 
 data class HospitalRequestModel (
     @SerializedName("city") var city : String?,
-    @SerializedName("hospital") var hospital : String?
+    @SerializedName("hospital") var hospital : String?,
+
 )

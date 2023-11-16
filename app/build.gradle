@@ -34,6 +34,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    namespace 'com.hackvita.pathcare'
 }
 
 dependencies {
@@ -64,8 +65,8 @@ dependencies {
 
     //Retrofit dependencies
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.7.0'
-    implementation 'com.squareup.okhttp3:okhttp:4.2.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.2'
 
     // Smooth Bottom Bar
     implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.9'
@@ -83,7 +84,14 @@ dependencies {
 
 
     //agora
-    implementation 'io.agora.rtc:full-sdk:3.5.0'
+//    implementation 'io.agora.rtc:full-sdk:4.0.1'
+
+
+    implementation('com.github.AgoraIO-Community.VideoUIKit-Android:final:4.0.1') {
+        exclude group: 'com.github.AgoraIO-Community.VideoUIKit-Android', module: 'final-debug'
+    }
+
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
 }
 

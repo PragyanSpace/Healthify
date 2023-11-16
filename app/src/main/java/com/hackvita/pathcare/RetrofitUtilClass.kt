@@ -10,8 +10,8 @@ class RetrofitUtilClass {
     companion object {
         private lateinit var retrofit: Retrofit
 
-        val API_BASE_URL_PROD = "https://path-med.onrender.com/"
 
+        val API_BASE_URL_PROD = "https://healthify-8z0y.onrender.com/"
         fun getRetrofit(): Retrofit {
 
             if (!::retrofit.isInitialized) {
@@ -30,8 +30,8 @@ class RetrofitUtilClass {
                             }.build())
                         }.also { client ->
                             val logging = HttpLoggingInterceptor()
-                            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-                            client.addInterceptor(logging);
+//                            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+//                            client.addInterceptor(null);
                         }.build()
                     ).build()
                 return retrofit

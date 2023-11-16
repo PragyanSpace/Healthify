@@ -11,6 +11,12 @@
         tools:layout="@layout/fragment_home">
     </fragment>
     <fragment
+        android:id="@+id/appointmentsFragment"
+        android:name="com.hackvita.pathcare.patient.appointments.ui.AppointmentsFragment"
+        android:label="AppointmentsFragment"
+        tools:layout="@layout/fragment_appointments">
+    </fragment>
+    <fragment
         android:id="@+id/profileFragment"
         android:name="com.hackvita.pathcare.patient.profile.ui.Profile"
         android:label="ProfileFragment"
