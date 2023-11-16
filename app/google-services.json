@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "488057877636",
+    "project_id": "healthify-3bd7d",
+    "storage_bucket": "healthify-3bd7d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:488057877636:android:ae023640273747e1c6fed1",
+        "android_client_info": {
+          "package_name": "com.hackvita.pathcare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "488057877636-l4if0qmh2j3hsq67sqscb5lvbrer86mc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYaeTqk5RX3ZGqF5lHY8jdjpixzFBdG-o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "488057877636-l4if0qmh2j3hsq67sqscb5lvbrer86mc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:488057877636:android:ca80af4732fa418dc6fed1",
+        "android_client_info": {
+          "package_name": "com.hackvita.pathcare_management"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "488057877636-l4if0qmh2j3hsq67sqscb5lvbrer86mc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYaeTqk5RX3ZGqF5lHY8jdjpixzFBdG-o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "488057877636-l4if0qmh2j3hsq67sqscb5lvbrer86mc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
